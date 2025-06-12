@@ -11,5 +11,6 @@ services:
     volumes:
       - /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/envs
     environment:
-      - env_firebase=/app/envs/serviceAccountKey.json
+      - env.firebase=/app/envs/serviceAccountKey.json
+
     restart: unless-stopped

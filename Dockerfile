@@ -15,4 +15,5 @@ COPY --from=build /app/build/libs/financa-0.0.1-SNAPSHOT.war ./app.war
 EXPOSE 8080
 
 # Inicia a aplicação passando o caminho do Firebase por variável de ambiente
-ENTRYPOINT ["java", "-Denv.firebase=${env_firebase}", "-jar", "app.war"]
+ENTRYPOINT ["java", "-Denv.firebase=${env.firebase}", "-jar", "app.war"]
+
