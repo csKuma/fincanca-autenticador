@@ -7,7 +7,7 @@
 
 ## comando docker pra fazer pull e rodar a api
 
-docker pull ghcr.io/cskuma/financa-api:latest && docker run \
+docker pull ghcr.io/cskuma/financa-api:latest && docker run -d \
 >   --env-file /home/ubuntu/keycloak-docker/envs/.env \
 >   -v /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro \
 >   -p 8080:8080 \
