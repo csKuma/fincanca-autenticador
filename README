@@ -1,0 +1,14 @@
+ ## variaveis de ambientes setar no intellij no run>debug>configuration
+
+ CONFIG_FIREBASE=src/main/resources/serviceAccountKey.json // cole o caminho do arquivo do firebase
+
+ SECRET_JWT = e0fb13f8-113a-4a5d-83a2-6af36c0b81c8 // Cola o secret do jwt
+
+
+## comando docker pra fazer pull e rodar a api
+
+docker pull ghcr.io/cskuma/financa-api:latest && docker run \
+>   --env-file /home/ubuntu/keycloak-docker/envs/.env \
+>   -v /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro \
+>   -p 8080:8080 \
+>   ghcr.io/cskuma/financa-api:latest api-financa

@@ -1,3 +1,4 @@
+# Usa Amazon Corretto 17 como base para o build
 FROM amazoncorretto:17 AS build
 WORKDIR /app
 
@@ -6,14 +7,15 @@ COPY . /app
 RUN chmod +x ./gradlew
 RUN ./gradlew build -x test
 
+# Usa uma imagem separada para a execução
 FROM amazoncorretto:17 AS release
 WORKDIR /app
 
-# Copia o .war gerado do build
+# Copia o .war gerado no build
 COPY --from=build /app/build/libs/financa-0.0.1-SNAPSHOT.war ./app.war
 
+# Expõe a porta 8080
 EXPOSE 8080
 
-# Inicia a aplicação passando o caminho do Firebase por variável de ambiente
-ENTRYPOINT ["java", "-Denv.firebase=${env.firebase}", "-jar", "app.war"]
+ENTRYPOINT ["sh", "-c", "java -DFIREBASE_CONFIG=$FIREBASE_CONFIG -jar app.war"]
 

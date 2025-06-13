@@ -1,16 +1,15 @@
 version: "3.8"
 
 services:
-  firebase-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: meu-app
+  financa-api:
+    image: ghcr.io/cskuma/financa-api:latest
+    container_name: financa-api
     ports:
       - "8080:8080"
-    volumes:
-      - /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/envs
+    env_file:
+      - /home/ubuntu/keycloak-docker/envs/.env
     environment:
-      - env.firebase=/app/envs/serviceAccountKey.json
-
+      - CONFIG_FIREBASE=/app/credenciais/serviceAccountKey.json
+    volumes:
+      - /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro
     restart: unless-stopped

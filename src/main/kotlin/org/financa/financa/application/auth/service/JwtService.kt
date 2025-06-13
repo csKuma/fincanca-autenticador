@@ -10,8 +10,10 @@ import io.jsonwebtoken.security.Keys
 
 @Service
 class JwtService {
+
+    var secret=System.getenv("SECRET_JWT")
     private val secretKey = Keys.hmacShaKeyFor(
-        "minha-super-chave-secreta-de-256bits-minha-super-chave-secreta".toByteArray()
+        secret.toByteArray()
     )
 
     fun generateToken(email: String): String {

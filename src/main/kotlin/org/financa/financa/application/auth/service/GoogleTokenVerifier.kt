@@ -18,13 +18,14 @@ import java.io.FileInputStream
 @Component
 class GoogleTokenVerifier {
 
-    @Value("\${firebase.config}")
-    private lateinit var FIREBASE_CREDENTIALS_PATH: String
+
+    val path = System.getenv("CONFIG_FIREBASE")
 
     @PostConstruct
     fun init() {
+        println("🔥 Caminho do Firebase: ${path}")
         if (FirebaseApp.getApps().isEmpty()) {
-            val serviceAccount = FileInputStream(FIREBASE_CREDENTIALS_PATH) // ajuste o caminho se necessário
+            val serviceAccount = FileInputStream(path) // ajuste o caminho se necessário
 
             val options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
