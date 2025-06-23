@@ -1,23 +1,19 @@
-package org.financa.financa.application.auth.service
+package org.financa.financa.infrastructure.auth.service
 
 
 import org.springframework.stereotype.Component
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.gson.GsonFactory
-import com.google.api.client.util.Value
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseToken
 import jakarta.annotation.PostConstruct
+import org.springframework.context.annotation.Lazy
 import java.io.FileInputStream
 
+@Lazy
 @Component
 class GoogleTokenVerifier {
-
 
     val path = System.getenv("CONFIG_FIREBASE")
 

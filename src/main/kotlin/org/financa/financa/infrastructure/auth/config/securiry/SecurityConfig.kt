@@ -1,4 +1,4 @@
-package org.financa.financa.config.securiry
+package org.financa.financa.infrastructure.auth.config.securiry
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
