@@ -1,4 +1,4 @@
-package org.financa.financa.config.swagger
+package org.financa.financa.infrastructure.config.swagger
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,4 +1,4 @@
-package org.financa.financa.application.auth.service
+package org.financa.financa.infrastructure.service
 
 
 import io.jsonwebtoken.Jwts

@@ -1,7 +1,8 @@
-package org.financa.financa.application.auth.controller
+package org.financa.financa.interfaces.auth
 
-import org.financa.financa.application.auth.service.GoogleTokenVerifier
-import org.financa.financa.application.auth.service.JwtService
+import org.financa.financa.infrastructure.service.GoogleTokenVerifier
+import org.financa.financa.infrastructure.service.JwtService
+import org.financa.financa.interfaces.auth.dto.GoogleLoginRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
