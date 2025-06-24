@@ -1,4 +1,4 @@
-package org.financa.financa.application.auth.service
+package org.financa.financa.infrastructure.auth.service
 
 
 import io.jsonwebtoken.Jwts
@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service
 import java.util.*
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
+import org.financa.financa.domain.auth.service.TokenService
 
 
 @Service
-class JwtService {
+class JwtService: TokenService {
 
     var secret=System.getenv("SECRET_JWT")
     private val secretKey = Keys.hmacShaKeyFor(
         secret.toByteArray()
     )
 
-    fun generateToken(email: String): String {
+    override fun generateToken(email: String): String {
         return Jwts.builder()
             .setSubject(email)
             .setIssuedAt(Date())
