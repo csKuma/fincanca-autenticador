@@ -4,11 +4,20 @@
 
  SECRET_JWT = e0fb13f8-113a-4a5d-83a2-6af36c0b81c8 // Cola o secret do jwt
 
+## build docker
+docker build -t ghcr.io/cskuma/financa-api:latest .
+
+## build no mac
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -t ghcr.io/cskuma/financa-api:latest . \
+  --push
 
 ## comando docker pra fazer pull e rodar a api
 
-docker pull ghcr.io/cskuma/financa-api:latest && docker run -d \
->   --env-file /home/ubuntu/keycloak-docker/envs/.env \
->   -v /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro \
->   -p 8080:8080 \
->   ghcr.io/cskuma/financa-api:latest api-financa
+docker pull ghcr.io/cskuma/financa-api:latest && \
+docker run -d \
+  --name api-financa \
+  --env-file /home/ubuntu/keycloak-docker/envs/.env \
+  -v /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro \
+  -p 8080:8080 \
+  ghcr.io/cskuma/financa-api:latest
