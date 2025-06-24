@@ -1,15 +1,13 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  financa-api:
-    image: ghcr.io/cskuma/financa-api:latest
-    container_name: financa-api
-    ports:
-      - "8080:8080"
+  api-financa:
+    image: ghcr.io/cskuma/fincanca-autenticador:dev
+    container_name: api-financa
     env_file:
       - /home/ubuntu/keycloak-docker/envs/.env
-    environment:
-      - CONFIG_FIREBASE=/app/credenciais/serviceAccountKey.json
     volumes:
       - /home/ubuntu/keycloak-docker/envs/firebase-api-env:/app/credenciais:ro
-    restart: unless-stopped
+    ports:
+      - "8082:8080"
+    restart: always
