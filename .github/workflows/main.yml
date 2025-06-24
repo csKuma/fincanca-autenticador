@@ -41,7 +41,7 @@ jobs:
         with:
           context: .
           push: true
-          # platforms: linux/amd64 # Remove multiplataforma para ganhar velocidade
+          # platforms: linux/amd64 # Se quiser multiplataforma, adicione ,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ghcr.io/cskuma/financa-api:${{ steps.vars.outputs.tag }}
+          tags: ghcr.io/cskuma/financa-autenticador:${{ steps.vars.outputs.tag }}
