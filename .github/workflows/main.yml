@@ -36,11 +36,12 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build e push da imagem Docker
+      - name: Build e push da imagem Docker multi-arch
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: ghcr.io/cskuma/fincanca-autenticador:${{ steps.vars.outputs.tag }}
