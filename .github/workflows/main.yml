@@ -1,4 +1,4 @@
-name: Build and Push Docker image
+name: Build and Deploy API
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 jobs:
-  docker:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set Docker tags
+      - name: Set Docker tag
         id: vars
         run: |
           if [[ "${{ github.ref_name }}" == "development" ]]; then
@@ -41,15 +41,25 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: ghcr.io/cskuma/fincanca-autenticador:${{ steps.vars.outputs.tag }}
 
+      - name: Enviar docker-compose.yml para o servidor
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: 141.148.146.134
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: docker-compose.yml
+          target: /home/ubuntu/fincanca-stack
+
       - name: Atualizar stack via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: 141.148.146.134               # <--- seu IP público ou DNS
-          username: ubuntu                   # <--- usuário do servidor
+          host: 141.148.146.134
+          username: ubuntu
           key: |
             -----BEGIN OPENSSH PRIVATE KEY-----
             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
@@ -102,4 +112,4 @@ jobs:
             -----END OPENSSH PRIVATE KEY-----
           script: |
             docker pull ghcr.io/cskuma/fincanca-autenticador:${{ steps.vars.outputs.tag }}
-            docker-compose -f /home/ubuntu/financa-stack/docker-compose.yml up -d
+            docker-compose -f /home/ubuntu/fincanca-stack/docker-compose.yml up -d
