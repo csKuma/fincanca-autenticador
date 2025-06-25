@@ -1,4 +1,4 @@
-name: Build, Push and Deploy Docker image
+name: Build and Push Docker image
 
 on:
   push:
@@ -48,9 +48,58 @@ jobs:
       - name: Atualizar stack via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key_str: ${{ secrets.SERVER_SSH_KEY }}
+          host: 141.148.146.134               # <--- seu IP público ou DNS
+          username: ubuntu                   # <--- usuário do servidor
+          key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            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
+            -----END OPENSSH PRIVATE KEY-----
           script: |
             docker pull ghcr.io/cskuma/fincanca-autenticador:${{ steps.vars.outputs.tag }}
             docker-compose -f /home/ubuntu/financa-stack/docker-compose.yml up -d
